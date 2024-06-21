@@ -25,37 +25,15 @@
  */
 
 // This is a translation of the cycle counter implementation in ports/stm32/machine_bitstream.c.
+// part of the code from robert-h w600 micropython port
 
 #include "py/mpconfig.h"
 #include "py/mphal.h"
-// nrfx/hal/nrf_gpio.h
 
 #if MICROPY_PY_MACHINE_BITSTREAM
 
 #define mp_hal_quiet_timing_enter() MICROPY_BEGIN_ATOMIC_SECTION()
 #define mp_hal_quiet_timing_exit(irq_state) MICROPY_END_ATOMIC_SECTION(irq_state)
-
-//    nRF    W600      STM32
-// OH 16 ??? 20   250  12 250
-// OL 18 ??? 22.4 280  18 375
-// CH 8  ??? 12   150   6 125
-// CL 7  ???  9   112   6 125
-// Fq 64Mhz   80Mhz     48Mhz
-// Ct 15.6ns  12.5ns    20.83ns
-
-/*
-// w60x @ 80 MHz 
-#define NS_CYCLES_PER_ITER_HIGH (125) //(150) //  8*15.6 125 
-#define NS_CYCLES_PER_ITER_LOW (110) //(112)  //  7*15.6 110
-#define NS_OVERHEAD_CYCLES_HIGH (250) // 16*15.6 250
-#define NS_OVERHEAD_CYCLES_LOW (280)  // 18*15.6 280
-
-uint32_t mp_hal_delay_ns_calc(uint32_t ns, bool high) {
-    int32_t time = ns - (high ? NS_OVERHEAD_CYCLES_HIGH : NS_OVERHEAD_CYCLES_LOW);
-    time = MAX(time, 0);
-    return MAX(1, MP_ROUND_DIVIDE(time, high ? NS_CYCLES_PER_ITER_HIGH : NS_CYCLES_PER_ITER_LOW));
-}
-*/
 
 // STM32F091 @ 48MHz
 #define NS_CYCLES_PER_ITER_HIGH (4)  // 6 => 4   //256
@@ -72,17 +50,11 @@ uint32_t mp_hal_delay_ns_calc(uint32_t ns, bool high) {
 void machine_bitstream_high_low(mp_hal_pin_obj_t p, uint32_t *timing_ns, const uint8_t *buf, size_t len) {
     uint32_t pin = p->pin;
     uint32_t reg;
-    //volatile NRF_GPIO_Type * gpio_reg = nrf_gpio_pin_port_decode(&pin);
-    //reg = gpio_reg->OUT; // liesst pin state 
     if (pin >= 32) {
         pin -= 32;
         reg = NRF_P1_BASE + 0x504;
         NRF_P1->DIRSET = (1 << pin);
     } else {
-        // Turn on LED (set P0.06 bit high)
-        //  NRF_P0->OUT |= (1 << LED_PIN);
-        // Turn off LED (clear P0.06 bit)
-        //  NRF_P0->OUT &= ~(1 << LED_PIN);
         reg = NRF_P0_BASE + 0x504;
         NRF_P0->DIRSET = (1 << pin);
     }
@@ -96,28 +68,6 @@ void machine_bitstream_high_low(mp_hal_pin_obj_t p, uint32_t *timing_ns, const u
     }
 
     uint32_t irq_state = mp_hal_quiet_timing_enter();
-
-    // Measured timing for W60X at 80MHz (cycle=12.5ns)
-    // timing_ns = (1,1,1,1)
-    //   high:  400
-    //   low:   400
-    //   high0: 400
-    //   low0:  400
-    // timing_ns = (700, 700, 700, 700)
-    //   high:  700
-    //   low:   725
-    //   high0: 700
-    //   low0:  725
-    // timing_ns = (1000, 1000, 1000, 1000)
-    //   high:  1000
-    //   low:   950
-    //   high0: 1000
-    //   low0:  950
-    // timing_ns = (2000, 2000, 2000, 2000)
-    //   high:  2050
-    //   low:   1975
-    //   high0: 2050
-    //   low0:  1975
 
     __asm volatile (
         // Force consistent register assignment.
