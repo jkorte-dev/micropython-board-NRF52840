@@ -35,10 +35,10 @@
 #define mp_hal_quiet_timing_enter() MICROPY_BEGIN_ATOMIC_SECTION()
 #define mp_hal_quiet_timing_exit(irq_state) MICROPY_END_ATOMIC_SECTION(irq_state)
 
-// STM32F091 @ 48MHz
+// NRF52840 @ 64MHz (cycle=15.625ns)
 #define NS_CYCLES_PER_ITER_HIGH (4)  // 6 => 4   //256
 #define NS_CYCLES_PER_ITER_LOW (4)   // 6 => 4   //256
-#define NS_OVERHEAD_CYCLES_HIGH (14) // 12 => 14 //218
+#define NS_OVERHEAD_CYCLES_HIGH (16) // 12 => 16 //218
 #define NS_OVERHEAD_CYCLES_LOW (12)  // 18 => 12 //188
 
 uint32_t mp_hal_delay_ns_calc(uint32_t ns, bool high) {
