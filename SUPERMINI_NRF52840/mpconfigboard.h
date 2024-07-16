@@ -29,7 +29,6 @@
 #define MICROPY_PY_SYS_PLATFORM     "nrf52"
 
 #define MICROPY_PY_MACHINE_UART     (1)
-#define MICROPY_PY_MACHINE_PWM      (1)
 #define MICROPY_PY_MACHINE_HW_PWM   (1)
 #define MICROPY_PY_MACHINE_HW_SPI   (1)
 #define MICROPY_PY_MACHINE_RTCOUNTER (1)
@@ -37,6 +36,7 @@
 #define MICROPY_PY_MACHINE_ADC      (1)
 #define MICROPY_PY_MACHINE_TEMP     (1)
 #define MICROPY_PY_FRAMEBUF         (1)
+//#define MICROPY_PY_MACHINE_BITSTREAM (1)
 #define MICROPY_PY_MUSIC            (1)
 #define MICROPY_PY_MACHINE_SOFT_PWM (1)
 

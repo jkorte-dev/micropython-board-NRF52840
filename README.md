@@ -10,6 +10,12 @@ Work in progress...
 
 ## SUPERMINI_NRF52840 
 basic board definition for the SuperMini / Nice!Nano / Pro Micro with nRF52840 works with micropython main repo
+build instructions:
+```
+./drivers/bluetooth/download_ble_stack.sh s140_nrf52_6_1_1
+make submodules
+make BOARD=SUPERMINI_NRF52840
+```
 
 ## SUPERMINI_NRF52840_NIMBLE
 experimental, needs some patches for nimble ble stack and rtc support. the machine_bitstream driver is under development...
