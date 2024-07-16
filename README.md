@@ -18,4 +18,4 @@ make BOARD=SUPERMINI_NRF52840
 ```
 
 ## SUPERMINI_NRF52840_NIMBLE
-experimental, needs some patches for nimble ble stack and rtc support. the machine_bitstream driver is under development...
+experimental, needs some patches for nimble ble stack and rtc support. The machine_bitstream driver to drive NeoPixel LEDs works for a couple of NeoPixel (Matrix) I have tested
