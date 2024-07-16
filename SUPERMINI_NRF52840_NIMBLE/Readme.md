@@ -1,4 +1,6 @@
-requires micropython fork 
+The nRF52840 MCU uses an ARM Cortex-M4F CPU clocked at 64MHz and offers 1MB of flash memory and 256KB of RAM.
+
+This board definition requires micropython fork 
 
 https://github.com/andrewleech/micropython/tree/nrf_ubluetooth
 
