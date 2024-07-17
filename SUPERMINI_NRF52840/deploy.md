@@ -17,10 +17,10 @@ step 4 is needed. For the .hex version of the firmware file, steps
 
    `uf2conv.py -c -f 0xADA52840 -o firmware.uf2 firmware.hex`
 
-   It must report the start address as 0x26000. (see https://github.com/adafruit/Adafruit_nRF52_Bootloader). If you omit the -o option,
+   It must report the start address as 0x26000. (see https://github.com/adafruit/Adafruit_nRF52_Bootloader for details). If you omit the -o option,
    the output file will have the name flash.uf2.
 
-4. Enable the upload mode by pushing reset twice within 0.5 s or calling
+4. Enable the upload mode by connecting RST to GND twice within 0.5 s or calling
    machine.bootloader() and copy the file firmware.uf2 to the board drive,
    which will pop up on your Mac as /Volume/NICENANO .
 
