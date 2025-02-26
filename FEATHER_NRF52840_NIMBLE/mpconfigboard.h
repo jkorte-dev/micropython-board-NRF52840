@@ -24,11 +24,12 @@
  * THE SOFTWARE.
  */
 
-#define MICROPY_HW_BOARD_NAME       "Adafruit Feather nRF52840 Express"
+#define MICROPY_HW_BOARD_NAME       "Adafruit Feather nRF52840 Express (nimble)"
 #define MICROPY_HW_MCU_NAME         "NRF52840"
 #define MICROPY_PY_SYS_PLATFORM     "nrf52"
 
 #define MICROPY_PY_MACHINE_UART     (1)
+#define MICROPY_PY_MACHINE_RTC      (1)
 #define MICROPY_PY_MACHINE_HW_PWM   (1)
 #define MICROPY_PY_MACHINE_HW_SPI   (1)
 #define MICROPY_PY_MACHINE_RTCOUNTER (1)
@@ -37,9 +38,10 @@
 #define MICROPY_PY_MACHINE_TEMP     (1)
 #define MICROPY_PY_FRAMEBUF         (1)
 #define MICROPY_PY_MACHINE_BITSTREAM (1)
-#define MICROPY_PY_MUSIC            (1)
-#define MICROPY_PY_MACHINE_SOFT_PWM (1)
+//#define MICROPY_PY_MUSIC            (1)
+//#define MICROPY_PY_MACHINE_SOFT_PWM (1)
 
+#define MICROPY_HW_ENABLE_RTC       (1)
 #define MICROPY_HW_ENABLE_RNG       (1)
 
 #define MICROPY_HW_ENABLE_USBDEV    (1)
