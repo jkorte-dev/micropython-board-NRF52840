@@ -48,4 +48,3 @@ not tested but looks interesting: https://github.com/julien123123/Micropython-He
 ## FEATHER_NRF52840_NIMBLE
 experimental, needs some patches for nimble ble stack and rtc support. Pre build firmware can be found in the firmware directory.
 
-
